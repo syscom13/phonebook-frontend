@@ -60,8 +60,8 @@ const App = () => {
                     setSuccess(null)
                 }, 5000)
                 resetFormInputs()
-            } catch (error) {
-                setError(`"${personObject.name}" could not be saved to the database`)
+            } catch ({ response }) {
+                setError(response.data.error)
                 setTimeout(() => {
                     setError(null)
                 }, 5000)
@@ -85,8 +85,8 @@ const App = () => {
                     setSuccess(null)
                 }, 5000)
                 resetFormInputs()
-            } catch (error) {
-                setError(`Informations about ${personObject.name} have already been deleted from the server`)
+            } catch ({ response }) {
+                setError(response.data.error)
                 setTimeout(() => {
                     setError(null)
                 }, 5000)
@@ -115,7 +115,7 @@ const App = () => {
         }
     }
 
-    const getMessage = () => {
+    const getNotification = () => {
         if (error) {
             return {
                 type: 'error',
@@ -137,7 +137,7 @@ const App = () => {
         <div className="small container">
             <h1>Phonebook</h1>
             <Notification 
-                message={getMessage()} 
+                message={getNotification()} 
             />
             <div>
                 <Search
